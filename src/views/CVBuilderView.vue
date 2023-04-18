@@ -1,9 +1,8 @@
 <template>
     <div>cv builder</div>
+    <c-v-template></c-v-template>
 </template>
 
-<script>
-export default {
-    name: "CVBuilderView"
-}
+<script lang="ts" setup>
+import { CVTemplate} from "@/components/CVTemplate";
 </script>

@@ -1,0 +1,139 @@
+{
+  "fullName": "Vadim Korolenko",
+  "position": "Senior JavaScript developer",
+  "shortDesc": "Infrastructure specialist with experience in design, creative capacity, great attention to the code scalability, ability to quickly find the necessary information, high problem-solving skills.",
+  "photoSrc": "",
+  "contacts": [
+    {
+      "type": "email",
+      "value": "vs.korolenko@gmail.com"
+    },
+    {
+      "type": "linkedin",
+      "value": "linkedin.com/in/vs-korolenko"
+    },
+    {
+      "type": "telegram",
+      "value": "@VSKorolenko"
+    },
+    {
+      "type": "location",
+      "value": "Ukraine, Mykolaiv"
+    }
+  ],
+  "workExperience": [
+    {
+      "position": "Middle Front-End Developer",
+      "organisation": {
+        "name": "Provectus",
+        "iconSrc": "",
+        "location": "Ukraine, Odessa",
+        "link": ""
+      },
+      "timeFrame": {
+        "start": "Apr 2016",
+        "end": "Present"
+      },
+      "desc": "Maintainancy and develop of a pretty complex and old enterprise product. Implementation of new tecnologies as polymer, webpack, Vue. Development of new features using implemented technologies. Refactoring of legacy code to modern components."
+    },
+    {
+      "position": "Fullstack Developer",
+      "organisation": {
+        "name": "Blink Reaction",
+        "iconSrc": "https://media-exp1.licdn.com/dms/image/C560BAQFomvUWN0b4Kg/company-logo_200_200/0/1558120735951?e=1652918400&v=beta&t=1BOvfDxPyZ5QK926HScMx3aiwwol_WVnZKxXF6j49YY",
+        "location": "Ukraine, Mykolaiv",
+        "link": "https://www.linkedin.com/company/blink-reaction/"
+      },
+      "timeFrame": {
+        "start": "May 2014",
+        "end": "Jan 2016"
+      },
+      "desc": "Full scope of developing, from templates and styles to database structure, based on Drupal CMS. Integration of third party services. Creating of rest API client tool (AngularJs, NodeJs, express, socket.io)."
+    },
+    {
+      "position": "Web Development",
+      "organisation": {
+        "name": "Freelance",
+        "iconSrc": "",
+        "location": "Ukraine, Mykolaiv",
+        "link": ""
+      },
+      "timeFrame": {
+        "start": "Aug 2013",
+        "end": "May 2014"
+      },
+      "desc": "Main role as JS developer. Creating interactive, creative designed sites, using latest technologies as Ajax, SVG, Canvas and different libraries as jQuery, jQueryUI, InfiniteScroll, Hammer.js, etc..."
+    },
+    {
+      "position": "Network Administrator",
+      "organisation": {
+        "name": "Zorya-Mashproekt state enterprise gas turbine scientific production complex",
+        "iconSrc": "",
+        "location": "Ukraine, Mykolaiv",
+        "link": ""
+      },
+      "timeFrame": {
+        "start": "Nov 2012",
+        "end": "Sep 2013"
+      },
+      "desc": "Network configuration. Internal data center support. User support. Support of internal corporative portal (Sharepoint 2010) such as page and user managing, migration to Sharepoint 2013 etc. Developing and mantaining of Address book app based on Sharepoint platform (C#,MsSQL). Develop separate internal corporative portal on CMS Drupal, migrate Address book to Drupal CMS (PHP, MySQL, Js). Developing of other tools for System support team. Extend Address book to CRM with virtual groups and task manager. IP Telephony integration (network, Address book)."
+    },
+    {
+      "position": "System support",
+      "organisation": {
+        "name": "Zorya-Mashproekt state enterprise gas turbine scientific production complex",
+        "iconSrc": "",
+        "location": "Ukraine, Mykolaiv",
+        "link": ""
+      },
+      "timeFrame": {
+        "start": "Jun 2012",
+        "end": "Nov 2012"
+      },
+      "desc": "Support users with system software. Support users with system and software. Installation, repairing, updating, solving issues of system software."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master's degree in Computer systems and networks",
+      "organisation": {
+        "name": "National University .V.O.Suhomlynskoho",
+        "link": "",
+        "location": "Ukraine, Mykolaiv",
+        "iconSrc": ""
+      },
+      "timeFrame": {
+        "start": "2006",
+        "end": "2011"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "level": 8
+    },
+    {
+      "name": "VueJs",
+      "level": 8
+    },
+    {
+      "name": "ReactJs",
+      "level": 5
+    }
+  ],
+  "languages": [
+    {
+      "name": "Ukrainian",
+      "level": 10
+    },
+    {
+      "name": "Russian",
+      "level": 10
+    },
+    {
+      "name": "English",
+      "level": 5
+    }
+  ]
+}
