@@ -2,7 +2,10 @@
   <div class="cv-template">
     <div class="header">
       <div class="left">
-        <div class="photo">Photo</div>
+        <div class="photo">
+          <image-input :model-value="cv.photoSrc"
+                       stretch="auto"/>
+        </div>
       </div>
       <div class="column-2">
         <div class="name">{{ cv.fullName }}</div>
@@ -58,6 +61,7 @@
 import { ref } from "vue";
 import { useAppStore } from "@/stores";
 import type { CV } from "@/types";
+import ImageInput from "@/components/ImageInput/ImageInput.vue";
 
 const cv = ref<CV>(useAppStore().cv);
 </script>
@@ -82,6 +86,13 @@ $bgColor: rgb(249, 249, 249);
 
   .left {
     flex: 0 0 30%
+  }
+
+  .photo .image-input {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 }
 </style>
