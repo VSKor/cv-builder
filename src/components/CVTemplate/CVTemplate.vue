@@ -36,6 +36,8 @@
         <div class="languages">
           <div class="cv-title">Languages</div>
           <template v-for="language in cv.languages">
+            <score :max="10"
+                   v-model="language.level"/>
             <div :class="['language', `language-${language.name}`]">
               {{ language.name }}: {{ language.level }}
             </div>
@@ -66,7 +68,8 @@
 import { ref } from "vue";
 import { useAppStore } from "@/stores";
 import type { CV } from "@/types";
-import ImageInput from "@/components/ImageInput/ImageInput.vue";
+import { ImageInput } from "@/components/ImageInput";
+import { Score } from "@/components/Score";
 
 const cv = ref<CV>(useAppStore().cv);
 </script>
@@ -98,6 +101,14 @@ $bgColor: rgb(249, 249, 249);
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
+  }
+
+  .cv-title {
+    margin-bottom: 15px;
+  }
+  .work-experience-list {}
+  .work-experience {
+    padding: 0 0 15px 0;
   }
 }
 </style>
