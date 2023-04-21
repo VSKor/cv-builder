@@ -1,0 +1,12 @@
+@import "variables";
+
+.cv-title {
+  font-size: 23px;
+  color: color('primary');
+  border-bottom: 1px solid color('primary');
+}
+
+.cv-subtitle {
+  font-size: 20px;
+  color: color('primary');
+}

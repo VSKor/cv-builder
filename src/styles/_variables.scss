@@ -1,0 +1,27 @@
+$colors: (
+        primary: (
+                basic: #329cb2,
+        )
+);
+
+@function color($colorName: primary, $shadeName: basic) {
+  @if($shadeName == 'basic') {
+    @return var(--cvb-color-#{$colorName});
+  }
+  @else {
+    @return var(--cvb-color-#{$colorName}-#{$shadeName});
+  }
+}
+
+:root {
+  @each $colorName, $colorShades in $colors {
+    @each $shadeName, $color in $colorShades {
+      @if($shadeName == 'basic') {
+        --cvb-color-#{$colorName}: #{$color};
+      }
+      @else {
+        --cvb-color-#{$colorName}-#{$shadeName}: #{$color};
+      }
+    }
+  }
+}

@@ -8,8 +8,8 @@
         </div>
       </div>
       <div class="column-2">
-        <div class="name">{{ cv.fullName }}</div>
-        <div class="title">{{ cv.position }}</div>
+        <h1 class="name">{{ cv.fullName }}</h1>
+        <div class="title cv-subtitle">{{ cv.position }}</div>
         <div class="description">{{ cv.shortDesc }}</div>
       </div>
     </div>
@@ -25,6 +25,7 @@
         </div>
 
         <div class="skills">
+          <div class="cv-title">Skills</div>
           <template v-for="skill in cv.skills">
             <div :class="['skill', `skill-${skill.name}`]">
               {{ skill.name }}: {{ skill.level }}
@@ -33,6 +34,7 @@
         </div>
 
         <div class="languages">
+          <div class="cv-title">Languages</div>
           <template v-for="language in cv.languages">
             <div :class="['language', `language-${language.name}`]">
               {{ language.name }}: {{ language.level }}
@@ -42,9 +44,12 @@
       </div>
       <div class="column-2">
         <div class="work-experience-list">
+          <div class="cv-title">
+            Work experience
+          </div>
           <template v-for="workExperience in cv.workExperience">
             <div class="work-experience">
-              <div class="job-title">{{ workExperience.position }}</div>
+              <div class="job-title cv-subtitle">{{ workExperience.position }}</div>
               <div class="company">{{ workExperience.organisation.name }}</div>
               <div class="date">{{ workExperience.timeFrame }}</div>
               <div class="location">{{ workExperience.organisation.location }}</div>
