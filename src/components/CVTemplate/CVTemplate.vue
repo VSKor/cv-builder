@@ -19,7 +19,8 @@
           <template v-for="contact in cv.contacts"
                     :key="contact.type">
             <div :class="['contact', `contact-${contact.type}`]">
-              {{ contact.value }}
+              <cvb-icon :icon="resolveContactTypeIcon(contact.type)"/>
+              <span>{{ contact.value }}</span>
             </div>
           </template>
         </div>
@@ -70,8 +71,22 @@ import { useAppStore } from "@/stores";
 import type { CV } from "@/types";
 import { ImageInput } from "@/components/ImageInput";
 import { Score } from "@/components/Score";
+import { CvbIcon } from "@/components/CvbIcon";
 
 const cv = ref<CV>(useAppStore().cv);
+
+const resolveContactTypeIcon = (type: string) => {
+  switch (type) {
+    case 'email':
+      return 'mail';
+    case 'linkedin':
+      return 'linkedin';
+    case 'telegram':
+      return 'telegram';
+    case 'location':
+      return 'location';
+  }
+};
 </script>
 
 <style lang="scss">

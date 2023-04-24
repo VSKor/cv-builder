@@ -1,0 +1,39 @@
+$icons-font: "icons";
+
+@font-face {
+    font-family: $icons-font;
+    src: url("./icons.ttf?a1c9136b55c8d04ba7251e617464e0c4") format("truetype"),
+url("./icons.woff?a1c9136b55c8d04ba7251e617464e0c4") format("woff"),
+url("./icons.woff2?a1c9136b55c8d04ba7251e617464e0c4") format("woff2");
+}
+
+i[class^="cvb-"]:before, i[class*=" cvb-"]:before {
+    font-family: icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$icons-map: (
+    "linkedin": "\f101",
+    "location": "\f102",
+    "mail": "\f103",
+    "telegram": "\f104",
+);
+
+.cvb-linkedin:before {
+    content: map-get($icons-map, "linkedin");
+}
+.cvb-location:before {
+    content: map-get($icons-map, "location");
+}
+.cvb-mail:before {
+    content: map-get($icons-map, "mail");
+}
+.cvb-telegram:before {
+    content: map-get($icons-map, "telegram");
+}

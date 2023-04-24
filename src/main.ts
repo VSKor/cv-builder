@@ -4,6 +4,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 
+import './icon-font/icons.scss';
 import './styles/main.scss';
 import { setupQuasar } from "@/plugins/quasar";
 
