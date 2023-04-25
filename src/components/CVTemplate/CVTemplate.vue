@@ -10,7 +10,7 @@
       <div class="column-2">
         <h1 class="name">{{ cv.fullName }}</h1>
         <div class="title cv-subtitle">{{ cv.position }}</div>
-        <div class="description">{{ cv.shortDesc }}</div>
+        <cvb-editable class="description" v-model="cv.shortDesc"/>
       </div>
     </div>
     <div class="body">
@@ -56,7 +56,7 @@
               <div class="company">{{ workExperience.organisation.name }}</div>
               <div class="date">{{ workExperience.timeFrame }}</div>
               <div class="location">{{ workExperience.organisation.location }}</div>
-              <div class="description">{{ workExperience.desc }}</div>
+              <cvb-editable class="description" v-model="workExperience.desc"/>
             </div>
           </template>
         </div>
@@ -72,6 +72,7 @@ import type { CV } from "@/types";
 import { ImageInput } from "@/components/ImageInput";
 import { Score } from "@/components/Score";
 import { CvbIcon } from "@/components/CvbIcon";
+import { CvbEditable } from "@/components/CvbEditable";
 
 const cv = ref<CV>(useAppStore().cv);
 
