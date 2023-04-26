@@ -1,5 +1,6 @@
 <template>
   <div class="cv-template">
+    <cvb-configurable-styles :ctrl="configurableCtrl"/>
     <div class="header">
       <div class="left">
         <div class="photo">
@@ -26,7 +27,9 @@
         </div>
 
         <div class="skills">
-          <div class="cv-title">Skills</div>
+          <cvb-configurable :ctrl="configurableCtrl" :classes="['name']">
+            <div class="cv-title">Skills</div>
+          </cvb-configurable>
           <template v-for="skill in cv.skills">
             <div :class="['skill', `skill-${skill.name}`]">
               {{ skill.name }}: {{ skill.level }}
@@ -73,8 +76,15 @@ import { ImageInput } from "@/components/ImageInput";
 import { Score } from "@/components/Score";
 import { CvbIcon } from "@/components/CvbIcon";
 import { CvbEditable } from "@/components/CvbEditable";
+import CvbConfigurable from "@/components/CvbConfigurable/CvbConfigurable.vue";
+import { CvbConfigCtrl } from "@/components/CvbConfigurable";
+import CvbConfigurableStyles from "@/components/CvbConfigurable/CvbConfigurableStyles.vue";
 
 const cv = ref<CV>(useAppStore().cv);
+
+const configurableCtrl = new CvbConfigCtrl();
+configurableCtrl.addClass('cv-title');
+configurableCtrl.setClassAttr('cv-title', 'color', 'lime');
 
 const resolveContactTypeIcon = (type: string) => {
   switch (type) {
