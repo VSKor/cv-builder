@@ -4,7 +4,7 @@
     <div class="header">
       <div class="left">
         <div class="photo">
-          <image-input :model-value="cv.photoSrc"
+          <image-input v-model="cv.photoSrc"
                        stretch="auto"/>
         </div>
       </div>

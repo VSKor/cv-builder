@@ -9,12 +9,14 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup async>
 import { ref } from "vue";
 
-const props = defineProps<{
-  modelValue: string;
-}>();
+const props = withDefaults(defineProps<{
+  modelValue?: string;
+}>(), {
+  modelValue: '#000'
+});
 
 const $emits = defineEmits(['update:modelValue']);
 

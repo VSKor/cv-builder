@@ -5,10 +5,12 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
+withDefaults(defineProps<{
   modelValue: string;
-  editable: boolean;
-}>();
+  editable?: boolean;
+}>(), {
+  editable: true
+});
 
 const $emit = defineEmits(["update:modelValue"]);
 
