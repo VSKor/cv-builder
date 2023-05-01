@@ -3,6 +3,10 @@ export interface Colors {
 }
 export interface Styles {
   color?: string;
+  width?: string;
+  padding?: string;
+  'font-size'?: string;
+  bg?: string;
 }
 
 export interface Classes {
@@ -12,4 +16,5 @@ export interface Classes {
 export interface Params {
   colors?: Colors;
   classes?: Classes;
+  allowedAttrs?: string[];
 }

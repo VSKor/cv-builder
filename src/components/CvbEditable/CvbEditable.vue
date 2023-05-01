@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { GET_WYSIWYG_TOOLBAR, WYSIWYG_FONTS } from "./constants";
 
 const props = withDefaults(defineProps<{
@@ -56,6 +56,10 @@ const WYSIWYG_DEFS = {
     handler: handleEscape
   }
 }
+
+watch(() => props.modelValue, (newValue) => {
+  content.value = newValue;
+});
 </script>
 
 <style lang="scss">

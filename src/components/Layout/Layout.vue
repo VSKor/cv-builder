@@ -1,15 +1,18 @@
 <template>
   <div>
-    <node :model-value="layout"></node>
+    <node :model-value="ctrl.model"></node>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { Node, type NodeModel } from "@/components/Node";
+import { LayoutCtrl } from "@/components/Layout/LayoutCtrl";
 
-defineProps<{
+const {layout} = defineProps<{
   layout: NodeModel;
 }>()
+
+const ctrl = new LayoutCtrl(layout);
 
 </script>
 
@@ -20,9 +23,9 @@ defineProps<{
   background-color: lightgrey;
 }
 
-.node {
-  &:hover {
-    background-color: rgba(37, 13, 13, 0.1);
-  }
-}
+//.node {
+//  &:hover {
+//    background-color: rgba(37, 13, 13, 0.1);
+//  }
+//}
 </style>

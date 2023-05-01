@@ -12,9 +12,23 @@ const props = defineProps<{
   ctrl: CvbConfigCtrl;
 }>();
 
+const resolveStyle = (attr: string, value: string) => {
+  if(attr === 'width') {
+    return `flex-basis: ${value}; min-width: ${value};`;
+  }
+  if(attr === 'bg') {
+    return `background-color: ${value}`;
+  }
+
+  return `${attr}: ${value};`;
+}
 const getStyles = (className: string) => {
   return (Object.keys(props.ctrl.classes.value[className]) as (keyof Styles)[]).map((attr) => {
-    return `${attr}: ${props.ctrl.classes.value[className][attr]};`
+    const attrValue = props.ctrl.classes.value[className][attr];
+    if(!attrValue) {
+      return '';
+    }
+    return resolveStyle(attr, attrValue);
   }).join('');
 }
 

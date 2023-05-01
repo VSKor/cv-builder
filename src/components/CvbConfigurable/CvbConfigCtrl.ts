@@ -1,17 +1,20 @@
 import { ref } from "vue";
 import type { Classes, Colors, Params, Styles } from "./types";
+import { ALLOWED_ATTRS } from "./constants";
 
 export class CvbConfigCtrl {
   classes = ref<Classes>({});
   colors = ref<Colors>({});
+  allowedAttrs: typeof ALLOWED_ATTRS;
 
-  constructor({ classes, colors }: Params = {}) {
+  constructor({ classes, colors, allowedAttrs }: Params = {}) {
     if (classes) {
       this.classes = ref(classes);
     }
     if (colors) {
       this.colors = ref(colors);
     }
+    this.allowedAttrs = allowedAttrs || ALLOWED_ATTRS;
   }
 
   addColor(colorName: string, color: string) {

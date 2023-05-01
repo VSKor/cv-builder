@@ -3,16 +3,8 @@
     <div class="cvb-configurable__panels">
       <q-icon name="settings"></q-icon>
       <q-menu anchor="center left">
-        <div v-for="(styles, className) in ctrl.classes.value"
-             class="cvb-configurable__panel"
-             :data-panel-for="className">
-          <div class="cvb-configurable__panel__title">{{ className }}</div>
-          <div class="cvb-configurable__color"
-               v-if="availableAttrs.includes('color')">
-            <span>Color</span>
-            <color-input v-model="getStyles(className).color"/>
-          </div>
-        </div>
+        <cvb-configurable-panel :ctrl="ctrl"
+                                :classes="classes"></cvb-configurable-panel>
       </q-menu>
     </div>
     <slot></slot>
@@ -21,22 +13,12 @@
 
 <script lang="ts" setup>
 import type { CvbConfigCtrl } from "./CvbConfigCtrl";
-import type { Styles } from "./types";
-import ColorInput from "@/components/ColorInput/ColorInput.vue";
-import CvbIcon from "@/components/CvbIcon/CvbIcon.vue";
+import CvbConfigurablePanel from "@/components/CvbConfigurable/CvbConfigurablePanel.vue";
 
-const { ctrl } = withDefaults(defineProps<{
-  availableAttrs?: (keyof Styles)[];
+const { ctrl } = defineProps<{
   ctrl: CvbConfigCtrl;
   classes?: string[];
-}>(), {
-  availableAttrs: ['color']
-});
-
-
-const getStyles = (className: string) => {
-  return ctrl.classes.value[className];
-}
+}>();
 </script>
 
 <style lang="scss">
