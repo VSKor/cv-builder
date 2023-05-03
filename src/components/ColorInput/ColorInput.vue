@@ -1,7 +1,14 @@
 <template>
   <div class="color-input">
-    <div class="color-input__color"
-         :style="`background-color: ${color}`"></div>
+    <q-input filled
+             :label="label"
+             v-model="color"
+             readonly>
+      <template #append>
+        <div class="color-input__color"
+             :style="`background-color: ${color}`"></div>
+      </template>
+    </q-input>
     <q-menu>
       <q-color v-model="color"
                @update:modelValue="handleUpdate"></q-color>
@@ -14,8 +21,9 @@ import { ref } from "vue";
 
 const props = withDefaults(defineProps<{
   modelValue?: string;
+  label?: string;
 }>(), {
-  modelValue: '#000'
+  modelValue: ''
 });
 
 const $emits = defineEmits(['update:modelValue']);
@@ -35,6 +43,7 @@ const handleUpdate = (newColor: string) => {
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
+    border: 1px solid #000;
   }
 }
 </style>

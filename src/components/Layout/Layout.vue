@@ -13,19 +13,4 @@ const {layout} = defineProps<{
 }>()
 
 const ctrl = new LayoutCtrl(layout);
-
 </script>
-
-<style lang="scss">
-.cv {
-  width: 210mm;
-  min-height: 297mm;
-  background-color: lightgrey;
-}
-
-//.node {
-//  &:hover {
-//    background-color: rgba(37, 13, 13, 0.1);
-//  }
-//}
-</style>

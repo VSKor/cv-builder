@@ -2,14 +2,18 @@ import { ref } from "vue";
 import type { Classes, Colors, Params, Styles } from "./types";
 import { ALLOWED_ATTRS } from "./constants";
 
+/* @ToDo: move style resolve ot the ctrl */
+
+/* @ToDo: filter styles styles by allowed attrs */
+
 export class CvbConfigCtrl {
-  classes = ref<Classes>({});
+  styles = ref<Classes>({});
   colors = ref<Colors>({});
   allowedAttrs: typeof ALLOWED_ATTRS;
 
-  constructor({ classes, colors, allowedAttrs }: Params = {}) {
-    if (classes) {
-      this.classes = ref(classes);
+  constructor({ styles, colors, allowedAttrs }: Params = {}) {
+    if (styles) {
+      this.styles = ref(styles);
     }
     if (colors) {
       this.colors = ref(colors);
@@ -26,14 +30,14 @@ export class CvbConfigCtrl {
   }
 
   addClass(className: string) {
-    this.classes.value[className] = {};
+    this.styles.value[className] = {};
   }
 
   removeClass(className: string) {
-    delete this.classes.value[className];
+    delete this.styles.value[className];
   }
 
   setClassAttr<Attr extends keyof Styles>(className: string, attr: Attr, param: Styles[Attr]) {
-    this.classes.value[className][attr] = param;
+    this.styles.value[className][attr] = param;
   }
 }

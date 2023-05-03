@@ -15,6 +15,6 @@ export interface Classes {
 
 export interface Params {
   colors?: Colors;
-  classes?: Classes;
+  styles?: Classes;
   allowedAttrs?: string[];
 }

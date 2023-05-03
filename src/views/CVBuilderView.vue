@@ -2,7 +2,9 @@
   <div>cv builder</div>
   <c-v-template></c-v-template>
 
-  <cvb-configurable-panel :ctrl="configurableCtrl"/>
+  <cvb-configurable-panel :ctrl="configurableCtrl"
+                          class="config-panel"/>
+
   <div>
     <cvb-configurable-styles :ctrl="configurableCtrl"/>
     <layout :layout="cvLayout"></layout>
@@ -14,23 +16,25 @@ import { CVTemplate } from "@/components/CVTemplate";
 import { Layout } from "@/components/Layout";
 import { ref } from "vue";
 import type { NodeModel } from "@/components/Node/types";
-import CvbConfigurableStyles from "@/components/CvbConfigurable/CvbConfigurableStyles.vue";
-import { CvbConfigCtrl } from "@/components/CvbConfigurable";
-import CvbConfigurablePanel from "@/components/CvbConfigurable/CvbConfigurablePanel.vue";
+import { CvbConfigCtrl, CvbConfigurableStyles, CvbConfigurablePanel } from "@/components/CvbConfigurable";
 
 const configurableCtrl = new CvbConfigCtrl({
-  classes: {
+  styles: {
     "cv": {
+      width: "210mm",
+      "min-height": "297mm",
       padding: "15px",
       bg: "rgb(249, 249, 249)"
     },
     "left": {
       width: "40%",
       padding: "0 15px 0 0"
+    },
+    "name": {
+      "font-size": "20px",
     }
   }
 });
-
 
 
 const cvLayout = ref<NodeModel>({
@@ -114,7 +118,11 @@ const cvLayout = ref<NodeModel>({
     },
   ]
 });
-
-console.log(111, cvLayout);
-
 </script>
+
+<style lang="scss">
+.config-panel {
+  width: 500px;
+  margin: 15px;
+}
+</style>

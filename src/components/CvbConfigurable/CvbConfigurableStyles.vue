@@ -13,19 +13,19 @@ const props = defineProps<{
 }>();
 
 const resolveStyle = (attr: string, value: string) => {
-  if(attr === 'width') {
-    return `flex-basis: ${value}; min-width: ${value};`;
+  if (attr === 'width') {
+    return `flex-basis: ${value}; width: ${value}; min-width: ${value};`;
   }
-  if(attr === 'bg') {
-    return `background-color: ${value}`;
+  if (attr === 'bg') {
+    return `background-color: ${value};`;
   }
 
   return `${attr}: ${value};`;
 }
 const getStyles = (className: string) => {
-  return (Object.keys(props.ctrl.classes.value[className]) as (keyof Styles)[]).map((attr) => {
-    const attrValue = props.ctrl.classes.value[className][attr];
-    if(!attrValue) {
+  return (Object.keys(props.ctrl.styles.value[className]) as (keyof Styles)[]).map((attr) => {
+    const attrValue = props.ctrl.styles.value[className][attr];
+    if (!attrValue) {
       return '';
     }
     return resolveStyle(attr, attrValue);
@@ -33,7 +33,7 @@ const getStyles = (className: string) => {
 }
 
 const computedStyles = computed(() => {
-  const styles = Object.keys(props.ctrl.classes.value).reduce((styles, className) => {
+  const styles = Object.keys(props.ctrl.styles.value).reduce((styles, className) => {
     return styles + `.${className}{ ${getStyles(className)} }`;
   }, '');
 
