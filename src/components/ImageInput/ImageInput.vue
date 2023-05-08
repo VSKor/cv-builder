@@ -2,9 +2,10 @@
   <label :class="['image-input', stretch && `stretch-by-${stretch}`]">
     <div class="image-input__content">
       <img class="image-input__img"
-           v-if="imgSrc"
-           :src="imgSrc"
-           :alt="encodedFile?.name || placeholder"/>
+           :style="imageStyle"
+           v-if="true"
+           :src="modelValue"
+           :alt="placeholder"/>
       <slot v-else
             name="placeholder">
           <span class="image-input__placeholder">
@@ -19,44 +20,50 @@
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { fileToBase64, EncodeFileResult } from "@/utils";
+import { fileToBase64 } from "@/utils";
 
-const { placeholder, toBase64, stretch: stretchProp, } = withDefaults(defineProps<{
-  modelValue: string | File;
-  toBase64?: boolean;
+const props = withDefaults(defineProps<{
+  modelValue: string;
   placeholder?: string;
-  stretch: 'width' | 'height' | 'auto';
+  stretch?: 'width' | 'height' | 'auto';
+  size: string;
 }>(), {
   placeholder: 'no image',
+  stretch: 'auto',
+  size: '50px'
 });
 
 const stretch = ref();
 
-const encodedFile = ref<EncodeFileResult>(null);
-
-const imgSrc = computed(() => encodedFile.value && `data:image;base64,${encodedFile.value.base64String}`);
+const imageStyle = computed(() => {
+  return stretch.value === 'width' ? `width:${props.size};` : `height:${props.size};`
+})
 
 const $emit = defineEmits(['update:modelValue'])
 
+const defineStretch = (value: string) => {
+  // Define stretch according image sizes
+  const img = document.createElement("img")
+  img.onload = () => {
+    stretch.value = img.height > img.width ? 'width' : 'height';
+  };
+  img.src = value;
+}
+
 const handleFileSelect = async (e: Event & { target: HTMLInputElement & EventTarget }) => {
   const file = e.target.files && e.target.files[0];
-  if (file) {
-    encodedFile.value = await fileToBase64(file);
-
-    if (stretchProp === 'auto') {
-      // Define stretch according image sizes
-      const img = document.createElement("img")
-      img.onload = () => {
-        stretch.value = img.height > img.width ? 'width' : 'height';
-      };
-      img.src = `data:image;base64,${encodedFile.value.base64String}`;
-    }
-
-    $emit('update:modelValue', toBase64 ? encodedFile.value : file);
-  } else {
-    encodedFile.value = null;
-    $emit('update:modelValue', null);
+  const { name, base64String } = await fileToBase64(file);
+  const base64FileSrc = file ? `data:image;filename:${name};base64,${base64String}` : null;
+  if (base64FileSrc && props.stretch === 'auto') {
+    defineStretch(base64FileSrc)
   }
+  $emit('update:modelValue', base64FileSrc);
+
+}
+
+// Initial stretch definition
+if (props.modelValue && props.stretch === 'auto') {
+  defineStretch(props.modelValue);
 }
 </script>
 

@@ -32,6 +32,13 @@ const configurableCtrl = new CvbConfigCtrl({
     },
     "name": {
       "font-size": "20px",
+    },
+    "photo": {
+      "width": "150px",
+      "height": "150px",
+      "border-radius": "50%",
+      "overflow": "hidden",
+      "margin": "15px"
     }
   }
 });
@@ -49,7 +56,10 @@ const cvLayout = ref<NodeModel>({
             {
               component: "ImageInput",
               class: ["photo"],
-              modelRef: "photoSrc"
+              "modelRef": "photoSrc",
+              "attributes": {
+                "size": "150px",
+              }
             },
           ]
         },

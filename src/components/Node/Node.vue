@@ -3,27 +3,11 @@
     <div class="node"
          :class="nodeClasses"
          :data-node="modelValue.id">
-      <template v-for="nodeDefs in modelValue.childes">
-        <node :model-value="nodeDefs"></node>
+      <template v-for="nodeDefs in modelValue.childes"
+                :key="nodeDefs.id">
+        <node :model-value="nodeDefs"
+        ></node>
       </template>
-      <div class="node__add"
-           v-if="editable">
-        <div>
-          <q-btn icon="add"
-                 fab></q-btn>
-          <q-menu>
-            <q-card>
-              <q-list>
-                <q-item v-for="(getter, name) in componentMap"
-                        clickable
-                        @click="() => handleAdd(name)" v-close-popup>
-                  {{ name }}
-                </q-item>
-              </q-list>
-            </q-card>
-          </q-menu>
-        </div>
-      </div>
     </div>
   </template>
 
@@ -33,60 +17,31 @@
                class="node"
                :class="modelValue.class"
                v-model="model"
+               :key="modelValue.id"
                :data-node="modelValue.id"></component>
   </template>
 </template>
 
 <script lang="ts" setup>
 // Basics
-import type { NodeDefs, NodeModel, MultiNodeDefs } from "@/components/Node/types";
-import { computed, reactive, ref, toRef } from "vue";
+import type { NodeDefs, MultiNodeDefs } from "@/components/Node/types";
+import { computed, ref, toRef } from "vue";
 import { useAppStore } from "@/stores";
 import { getByPath } from "@/components/Node/utils";
-
-const appStore = useAppStore();
 
 const props = defineProps<{
   modelValue: NodeDefs | MultiNodeDefs;
   editable?: boolean;
 }>();
-const emit = defineEmits([]);
 // Model
 const cv = useAppStore().cv;
 
-if (props.modelValue.modelRef) {
-  console.log(1, props.modelValue.modelRef);
-  console.log(123, getByPath(cv, props.modelValue.modelRef, true));
-}
 const model = props.modelValue.modelRef ? toRef(...getByPath(cv, props.modelValue.modelRef, true)) : ref(null);
 // Computed
 const isNodeDefs = computed(() => !Array.isArray(props.modelValue));
 // States
 const nodeClasses = isNodeDefs.value ? props.modelValue.class : [];
 // Methods
-const getBlock = (type: 'row' | 'column') => {
-  return {
-    class: [type],
-    childes: []
-  };
-}
-const getEditBlock = () => {
-  return {
-    component: 'EditBlock',
-    class: ["text"]
-  };
-}
-
-// type: 'row' | 'column' | 'text'
-const componentMap = {
-  row: getBlock.bind(void 0, 'row'),
-  column: getBlock.bind(void 0, 'column'),
-  text: getEditBlock
-}
-
-const handleAdd = (type: string) => {
-  props.modelValue.childes.push(componentMap[type]())
-}
 // Watchers
 // Hooks
 </script>
