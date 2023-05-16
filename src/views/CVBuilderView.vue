@@ -3,6 +3,7 @@
   <c-v-template></c-v-template>
 
   <cvb-configurable-panel :ctrl="configurableCtrl"
+                          :classes="[...configurableCtrl.styles.keys()]"
                           class="config-panel"/>
 
   <div>
@@ -15,7 +16,7 @@
 import { CVTemplate } from "@/components/CVTemplate";
 import { Layout } from "@/components/Layout";
 import { ref } from "vue";
-import type { NodeModel } from "@/components/Node/types";
+import type { RawNodeDefs } from "@/components/Node";
 import { CvbConfigCtrl, CvbConfigurableStyles, CvbConfigurablePanel } from "@/components/CvbConfigurable";
 
 const configurableCtrl = new CvbConfigCtrl({
@@ -33,81 +34,134 @@ const configurableCtrl = new CvbConfigCtrl({
     "name": {
       "font-size": "20px",
     },
+    "title": {},
+    "description": {},
     "photo": {
       "width": "150px",
       "height": "150px",
       "border-radius": "50%",
       "overflow": "hidden",
       "margin": "15px"
-    }
+    },
+    "photo-container": {
+      "align-items": "center"
+    },
   }
 });
 
 
-const cvLayout = ref<NodeModel>({
-  class: ['cv', 'column'],
+const layoutDefs: RawNodeDefs = {
+  attributes: {
+    class: ['cv', 'column'],
+  },
   childes: [
     {
-      class: ["header", "row"],
+      attributes: {
+        class: ["header", "row"],
+      },
       childes: [
         {
-          class: ["left", "column"],
+          attributes: { class: ["left", "column", "photo-container"], },
           childes: [
             {
-              component: "ImageInput",
-              class: ["photo"],
-              "modelRef": "photoSrc",
-              "attributes": {
-                "size": "150px",
-              }
-            },
+              component: "CvbConfigurable",
+              attributes: {
+                ctrl: configurableCtrl,
+                class: ["photo-container"],
+              },
+              childes: [
+                {
+                  component: "ImageInput",
+
+                  "modelRef": "photoSrc",
+                  "attributes": {
+                    "size": "150px",
+                    class: ["photo"],
+                  }
+                },
+              ]
+            }
           ]
         },
         {
-          class: ["right", "column"],
+          attributes: { class: ["right", "column"], },
           childes: [
             {
-              component: "CvbEditable",
-              class: ["name"],
-              modelRef: "fullName",
+              component: "CvbConfigurable",
+              attributes: {
+                ctrl: configurableCtrl,
+                classes: ["name"],
+                class: ["name-container"],
+              },
+              childes: [
+                {
+                  component: "CvbEditable",
+                  modelRef: "fullName",
+                  attributes: {
+                    class: ["name"],
+                  }
+                },
+              ]
             },
             {
-              component: "CvbEditable",
-              class: ["title"],
-              modelRef: "position",
+              component: "CvbConfigurable",
+              attributes: {
+                class: ["name-container"],
+                ctrl: configurableCtrl,
+                classes: ["title"],
+              },
+              childes: [
+                {
+                  component: "CvbEditable",
+                  modelRef: "position",
+                  attributes: { class: ["title"], }
+                },
+              ]
             },
             {
-              component: "CvbEditable",
-              class: ["description"],
-              modelRef: "shortDesc",
-            },
+              component: "CvbConfigurable",
+              attributes: {
+                class: ["name-container"],
+                ctrl: configurableCtrl,
+                classes: ["description"],
+              },
+              childes: [
+                {
+                  component: "CvbEditable",
+                  modelRef: "shortDesc",
+                  attributes: { class: ["description"], }
+                },
+              ]
+            }
           ]
         },
       ]
     },
     {
-      class: ["body", "row"],
+      attributes: {
+        class: ["body", "row"],
+      },
       childes: [
         {
-          class: ["left", "column"],
+          attributes: { class: ["left", "column"], },
           childes: [
             {
               component: "CvbContacts",
-              class: ["contacts"],
               modelRef: "contacts",
+              attributes: { class: ["contacts"], }
             },
             {
               component: "CvbRatingItems",
-              class: ["skills"],
               attributes: {
+                class: ["skills"],
                 title: "skills"
               },
               modelRef: "skills"
             },
             {
               component: "CvbRatingItems",
-              class: ["languages"],
               attributes: {
+                class: ["languages"],
                 title: "languages"
               },
               modelRef: "languages"
@@ -115,19 +169,21 @@ const cvLayout = ref<NodeModel>({
           ]
         },
         {
-          class: ["right", "column"],
+          attributes: { class: ["right", "column"], },
           childes: [
             {
               component: "CvbWorkExperience",
-              class: ["work-experience"],
-              modelRef: 'workExperience'
+              modelRef: 'workExperience',
+              attributes: { class: ["work-experience"], }
             },
           ]
         },
       ]
     },
   ]
-});
+};
+
+const cvLayout = ref(layoutDefs);
 </script>
 
 <style lang="scss">

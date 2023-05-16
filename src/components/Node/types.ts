@@ -1,16 +1,18 @@
-interface BaseDefs {
-  id: string;
+interface NodeAttributes {
   class?: string | string[];
+  [attr: string]: any;
 }
 
-export interface NodeDefs extends BaseDefs {
-  component: string;
+export interface RawNodeDefs {
+  id?: string;
+  component?: string;
+  childes?: RawNodeDefs[];
   modelRef?: string;
-  attributes?: Record<string, unknown>;
+  attributes?: NodeAttributes;
 }
 
-export interface MultiNodeDefs extends BaseDefs {
-  childes: (NodeDefs | MultiNodeDefs)[];
+export interface NodeDefs extends RawNodeDefs {
+  id: string;
+  childes?: NodeDefs[];
 }
 
-export type NodeModel = NodeDefs | MultiNodeDefs

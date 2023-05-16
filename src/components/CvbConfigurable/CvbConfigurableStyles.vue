@@ -1,16 +1,20 @@
 <template>
   <div class="cvb-configurable-styles"
-       v-html="computedStyles"></div>
+       v-html="styles"></div>
 </template>
 
 <script lang="ts" setup>
 import type { CvbConfigCtrl } from "./CvbConfigCtrl";
-import { computed } from "vue";
-import type { Styles } from "./types";
+import { ref } from "vue";
+import { EVENTS } from "./constants";
 
 const props = defineProps<{
   ctrl: CvbConfigCtrl;
 }>();
+
+props.ctrl.emitter.on(EVENTS.UPDATE_STYLES, () => {
+  styles.value = computeStyles();
+})
 
 const resolveStyle = (attr: string, value: string) => {
   if (attr === 'width') {
@@ -22,21 +26,27 @@ const resolveStyle = (attr: string, value: string) => {
 
   return `${attr}: ${value};`;
 }
-const getStyles = (className: string) => {
-  return (Object.keys(props.ctrl.styles.value[className]) as (keyof Styles)[]).map((attr) => {
-    const attrValue = props.ctrl.styles.value[className][attr];
-    if (!attrValue) {
-      return '';
-    }
-    return resolveStyle(attr, attrValue);
-  }).join('');
+const getStyles = function (this: CvbConfigCtrl, className: keyof typeof this["styles"]) {
+  const classAttributes = props.ctrl.styles.get(className as string);
+  if (classAttributes) {
+    return (Object.keys(classAttributes) as (keyof typeof classAttributes)[]).map((attr) => {
+      const attrValue = classAttributes[attr];
+      if (!attrValue) {
+        return '';
+      }
+      return resolveStyle(attr, attrValue);
+    }).join('');
+  }
+
+  return '';
 }
 
-const computedStyles = computed(() => {
-  const styles = Object.keys(props.ctrl.styles.value).reduce((styles, className) => {
-    return styles + `.${className}{ ${getStyles(className)} }`;
+const computeStyles = (() => {
+  const styles = [...props.ctrl.styles.keys()].reduce((styles, className) => {
+    return styles + `.${className}{ ${getStyles.call(props.ctrl, className)} }`;
   }, '');
 
   return `<style>${styles}</style>`;
 });
+const styles = ref(computeStyles());
 </script>

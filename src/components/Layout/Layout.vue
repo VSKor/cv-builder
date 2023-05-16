@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Node, type NodeModel } from "@/components/Node";
+import { Node, type NodeDefs } from "@/components/Node";
 import { LayoutCtrl } from "@/components/Layout/LayoutCtrl";
 
 const {layout} = defineProps<{
-  layout: NodeModel;
+  layout: NodeDefs;
 }>()
 
 const ctrl = new LayoutCtrl(layout);

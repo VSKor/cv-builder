@@ -1,46 +1,34 @@
 <template>
-  <template v-if="modelValue.childes">
-    <div class="node"
-         :class="nodeClasses"
-         :data-node="modelValue.id">
-      <template v-for="nodeDefs in modelValue.childes"
-                :key="nodeDefs.id">
-        <node :model-value="nodeDefs"
-        ></node>
-      </template>
-    </div>
-  </template>
-
-  <template v-else>
-    <component :is="modelValue.component"
-               v-bind="modelValue.attributes"
-               class="node"
-               :class="modelValue.class"
-               v-model="model"
-               :key="modelValue.id"
-               :data-node="modelValue.id"></component>
-  </template>
+  <component :is="modelValue.component || 'div'"
+             v-bind="modelValue.attributes"
+             class="node"
+             :class="modelValue.class"
+             v-model="model"
+             :key="modelValue.id"
+             :data-node="modelValue.id">
+    <template v-for="nodeDefs in modelValue.childes"
+              :key="nodeDefs.id">
+      <node :model-value="nodeDefs"></node>
+    </template>
+  </component>
 </template>
 
 <script lang="ts" setup>
 // Basics
-import type { NodeDefs, MultiNodeDefs } from "@/components/Node/types";
-import { computed, ref, toRef } from "vue";
+import type { NodeDefs } from "@/components/Node/types";
+import { ref } from "vue";
 import { useAppStore } from "@/stores";
-import { getByPath } from "@/components/Node/utils";
+import { toRefByPath } from "@/components/Node/utils";
 
 const props = defineProps<{
-  modelValue: NodeDefs | MultiNodeDefs;
+  modelValue: NodeDefs;
   editable?: boolean;
 }>();
 // Model
 const cv = useAppStore().cv;
-
-const model = props.modelValue.modelRef ? toRef(...getByPath(cv, props.modelValue.modelRef, true)) : ref(null);
+const model = props.modelValue.modelRef ? toRefByPath(cv, props.modelValue.modelRef) : ref(null);
 // Computed
-const isNodeDefs = computed(() => !Array.isArray(props.modelValue));
 // States
-const nodeClasses = isNodeDefs.value ? props.modelValue.class : [];
 // Methods
 // Watchers
 // Hooks
@@ -55,6 +43,7 @@ import { CvbRatingItems } from "@/components/CvbRatingItems";
 import { ImageInput } from "@/components/ImageInput";
 import { CvbContacts } from "@/components/CvbContacts";
 import { CvbWorkExperience } from "@/components/CvbWorkExperience";
+import { CvbConfigurable } from "@/components/CvbConfigurable";
 
 export default {
   components: {
@@ -65,7 +54,8 @@ export default {
     CvbRatingItems,
     ImageInput,
     CvbContacts,
-    CvbWorkExperience
+    CvbWorkExperience,
+    CvbConfigurable
   }
 }
 </script>

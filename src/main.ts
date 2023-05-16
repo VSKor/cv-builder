@@ -6,7 +6,7 @@ import router from './router';
 
 import './icon-font/icons.scss';
 import './styles/main.scss';
-import { setupQuasar } from "@/plugins/quasar";
+import { setupQuasar } from '@/plugins/quasar';
 
 const app = createApp(App);
 

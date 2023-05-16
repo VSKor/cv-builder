@@ -1,17 +1,13 @@
-interface AnyObject {
-  [key: string]: unknown | AnyObject;
-}
+import { toRef } from "vue";
 
-export const getByPath = (object: unknown, path: string[] | string, toRef = false) => {
-  const pathArr = Array.isArray(path) ? path : path.split('.');
+export const toRefByPath = (object: any, path: string[] | string, separator = '.') => {
+  const pathArr = Array.isArray(path) ? path : path.split(separator);
   let target = object;
   const lastIndex = pathArr.length - 1;
   for (const [index, step] of pathArr.entries()) {
-    if (toRef && index === lastIndex) {
-      return [target, pathArr[lastIndex]];
+    if (index === lastIndex) {
+      return toRef(target, pathArr[lastIndex]);
     }
     target = target && typeof target === 'object' && step in target ? target[step] : undefined;
   }
-
-  return [target];
 }

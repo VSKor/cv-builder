@@ -1,35 +1,21 @@
-interface BaseDefs {
-  id: string;
-  class?: string | string[];
-}
-
-export interface NodeDefs extends BaseDefs {
-  component: string;
-  modelRef?: string;
-}
-
-export interface MultiNodeDefs extends BaseDefs {
-  childes: (NodeDefs | MultiNodeDefs)[];
-}
-
-export type NodeModel = NodeDefs | MultiNodeDefs
+import type { NodeDefs } from '@/components/Node';
 
 const idGen = () => {
   return `${+new Date()}-${Math.random()}`;
 }
 
 export class LayoutCtrl {
-  model: NodeModel;
-  private index: Map<string, NodeModel> = new Map();
+  model: NodeDefs;
+  private index: Map<string, NodeDefs> = new Map();
 
-  constructor(model: NodeModel) {
+  constructor(model: NodeDefs) {
     this.model = this.normalizeModel(model, this.index);
   }
 
-  normalizeModel(model: NodeModel, index: Map<string, NodeModel>) {
+  normalizeModel(model: NodeDefs, index: Map<string, NodeDefs>) {
     model.id = model.id || idGen();
     index.set(model.id, model);
-    if ('childes' in model) {
+    if (model.childes) {
       model.childes.forEach((childModel) => this.normalizeModel(childModel, index))
     }
     return model;

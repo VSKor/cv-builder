@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.2",
+    "eventemitter3": "^5.0.1",
     "pinia": "^2.0.32",
     "quasar": "^2.11.10",
     "sass": "^1.62.0",
