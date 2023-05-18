@@ -72,11 +72,10 @@ const layoutDefs: RawNodeDefs = {
               childes: [
                 {
                   component: "ImageInput",
-
-                  "modelRef": "photoSrc",
                   "attributes": {
                     "size": "150px",
                     class: ["photo"],
+                    model: "photoSrc"
                   }
                 },
               ]
@@ -96,8 +95,8 @@ const layoutDefs: RawNodeDefs = {
               childes: [
                 {
                   component: "CvbEditable",
-                  modelRef: "fullName",
                   attributes: {
+                    "model": "fullName",
                     class: ["name"],
                   }
                 },
@@ -113,8 +112,10 @@ const layoutDefs: RawNodeDefs = {
               childes: [
                 {
                   component: "CvbEditable",
-                  modelRef: "position",
-                  attributes: { class: ["title"], }
+                  attributes: {
+                    class: ["title"],
+                    model: "position"
+                  }
                 },
               ]
             },
@@ -128,8 +129,10 @@ const layoutDefs: RawNodeDefs = {
               childes: [
                 {
                   component: "CvbEditable",
-                  modelRef: "shortDesc",
-                  attributes: { class: ["description"], }
+                  attributes: {
+                   class: ["description"],
+                    model: "shortDesc"
+                  }
                 },
               ]
             }
@@ -147,24 +150,26 @@ const layoutDefs: RawNodeDefs = {
           childes: [
             {
               component: "CvbContacts",
-              modelRef: "contacts",
-              attributes: { class: ["contacts"], }
+              attributes: {
+                class: ["contacts"],
+                model: "contacts"
+              }
             },
             {
               component: "CvbRatingItems",
               attributes: {
                 class: ["skills"],
-                title: "skills"
+                title: "skills",
+                model: "skills",
               },
-              modelRef: "skills"
             },
             {
               component: "CvbRatingItems",
               attributes: {
                 class: ["languages"],
-                title: "languages"
+                title: "languages",
+                model: "languages",
               },
-              modelRef: "languages"
             },
           ]
         },
@@ -173,8 +178,10 @@ const layoutDefs: RawNodeDefs = {
           childes: [
             {
               component: "CvbWorkExperience",
-              modelRef: 'workExperience',
-              attributes: { class: ["work-experience"], }
+              attributes: {
+                class: ["work-experience"],
+                model: "workExperience",
+              }
             },
           ]
         },

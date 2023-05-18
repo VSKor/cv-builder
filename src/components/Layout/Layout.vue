@@ -1,6 +1,6 @@
 <template>
   <div>
-    <node :model-value="ctrl.model"></node>
+    <node :node-defs="ctrl.model"></node>
   </div>
 </template>
 

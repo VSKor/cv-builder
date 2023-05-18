@@ -1,18 +1,18 @@
-interface NodeAttributes {
+export interface NodeAttributes {
   class?: string | string[];
+  model?: string;
   [attr: string]: any;
 }
 
 export interface RawNodeDefs {
-  id?: string;
+  uid?: string;
   component?: string;
   childes?: RawNodeDefs[];
-  modelRef?: string;
   attributes?: NodeAttributes;
 }
 
 export interface NodeDefs extends RawNodeDefs {
-  id: string;
+  uid: string;
   childes?: NodeDefs[];
 }
 

@@ -1,32 +1,56 @@
 <template>
-  <component :is="modelValue.component || 'div'"
-             v-bind="modelValue.attributes"
+  <component :is="nodeDefs.component || 'div'"
+             v-bind="handledAttributes"
              class="node"
-             :class="modelValue.class"
-             v-model="model"
-             :key="modelValue.id"
-             :data-node="modelValue.id">
-    <template v-for="nodeDefs in modelValue.childes"
-              :key="nodeDefs.id">
-      <node :model-value="nodeDefs"></node>
+             :key="nodeDefs"
+             :data-node="nodeDefs.uid">
+    <template v-for="childDefs in nodeDefs.childes"
+              :key="childDefs.uid">
+      <node :node-defs="childDefs"
+            :context="prepareContext()"></node>
     </template>
   </component>
 </template>
 
 <script lang="ts" setup>
 // Basics
-import type { NodeDefs } from "@/components/Node/types";
-import { ref } from "vue";
+import type { NodeAttributes, NodeDefs } from "@/components/Node/types";
 import { useAppStore } from "@/stores";
 import { toRefByPath } from "@/components/Node/utils";
 
 const props = defineProps<{
-  modelValue: NodeDefs;
-  editable?: boolean;
+  nodeDefs: NodeDefs;
+  context?: any
 }>();
 // Model
 const cv = useAppStore().cv;
-const model = props.modelValue.modelRef ? toRefByPath(cv, props.modelValue.modelRef) : ref(null);
+
+const prepareContext = () => {
+  return {};
+};
+
+const handleAttributes = () => {
+  const attributes = props.nodeDefs.attributes || {};
+  return (Object.keys(attributes) as (keyof NodeAttributes)[]).reduce((attrs, attr) => {
+    let attributeValue = attributes[attr];
+    let handledAttribute = attr;
+
+    if (attr === "model") {
+      attributeValue = toRefByPath(cv, attributeValue);
+      return {
+        ...attrs,
+        modelValue: attributeValue.value,
+        "onUpdate:modelValue": ($event: any) => {
+          attributeValue.value = $event;
+        }
+      };
+    }
+
+    return { ...attrs, [handledAttribute]: attributeValue };
+  }, {});
+};
+const handledAttributes = handleAttributes()
+
 // Computed
 // States
 // Methods
@@ -41,7 +65,7 @@ import { EditBlock } from "@/components/EditBlock";
 import { CvbEditable } from "@/components/CvbEditable";
 import { CvbRatingItems } from "@/components/CvbRatingItems";
 import { ImageInput } from "@/components/ImageInput";
-import { CvbContacts } from "@/components/CvbContacts";
+import { CvbContacts, CvbContactsItem } from "@/components/CvbContacts";
 import { CvbWorkExperience } from "@/components/CvbWorkExperience";
 import { CvbConfigurable } from "@/components/CvbConfigurable";
 
@@ -54,6 +78,7 @@ export default {
     CvbRatingItems,
     ImageInput,
     CvbContacts,
+    CvbContactsItem,
     CvbWorkExperience,
     CvbConfigurable
   }

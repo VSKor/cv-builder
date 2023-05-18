@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<{
   modelValue: string;
   placeholder?: string;
   stretch?: 'width' | 'height' | 'auto';
-  size: string;
+  size?: string;
 }>(), {
   placeholder: 'no image',
   stretch: 'auto',
